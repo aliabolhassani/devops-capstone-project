@@ -5,6 +5,10 @@ node {
 		checkout scm
 	}
 
+        stage ('Stop Docker containers') {
+		sh 'docker container rm -f $(docker ps -a)'
+	}
+
 	stage('Build image') {
 		app = docker.build("${dockerhubaccountid}/${application}:${BUILD_NUMBER}")
 	}
