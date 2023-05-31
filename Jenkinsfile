@@ -2,15 +2,15 @@ node {
     def application = 'springbootapp'
     def dockerhubaccountid = 'aliabolhassani'
 
-    stage('Clone repository') {
+    stage('Clone Repository') {
         checkout scm
     }
 
-    stage('Stop Docker containers') {
+    stage('Stop Docker Containers') {
         sh '(docker container rm -f $(docker ps -a -q)) || true'
     }
 
-    stage('Run unit tets') {
+    stage('Run Unit Tets') {
         sh('./mvnw test')
     }
 
@@ -18,11 +18,11 @@ node {
         sh('./mvnw clean package')
     }
 
-    stage('Build image') {
+    stage('Build Image') {
         app = docker.build("${dockerhubaccountid}/${application}:${BUILD_NUMBER}")
     }
 
-    stage('Push image') {
+    stage('Push Image') {
         withDockerRegistry([ credentialsId: 'dockerHub', url: '' ]) {
             app.push()
             app.push('latest')
@@ -33,7 +33,7 @@ node {
         sh("docker run -d -p 80:8080 -v /var/log/:/var/log/ ${dockerhubaccountid}/${application}:${BUILD_NUMBER}")
     }
 
-    stage('Remove old images') {
+    stage('Remove Old Images') {
         sh("docker rmi ${dockerhubaccountid}/${application}:latest -f")
     }
 }
