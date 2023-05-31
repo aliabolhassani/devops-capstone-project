@@ -7,7 +7,7 @@ node {
     }
 
     stage('Stop Docker containers') {
-        sh 'docker container rm -f $(docker ps -a -q)'
+        sh '(docker container rm -f $(docker ps -a -q)) || true'
     }
 
     stage('Run unit tets') {
