@@ -52,6 +52,6 @@ public class HelloWorldConfigurationTests {
 	public void testGreetingResponseBody() throws Exception {
 		ResponseEntity<String> entity = restTemplate
 				.getForEntity("http://localhost:" + this.port + "/", String.class);
-		assertEquals("Hello World!", entity.getBody());
+		assertEquals("Hello World!\n", entity.getBody());
 	}
 }

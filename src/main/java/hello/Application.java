@@ -14,7 +14,7 @@ public class Application {
 
 	@RequestMapping("/")
 	public ResponseEntity<String> home() {
-		return new ResponseEntity<>("Hello World!", HttpStatus.OK);
+		return new ResponseEntity<>("Hello World!\n", HttpStatus.OK);
 	}
 
 	public static void main(String[] args) {
