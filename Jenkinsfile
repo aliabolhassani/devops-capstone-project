@@ -1,7 +1,7 @@
 node {
     def application = 'springbootapp'
     def dockerhubaccountid = 'ali.abolhassani'
-    
+
     stage('Clone repository') {
         checkout scm
     }
@@ -10,8 +10,12 @@ node {
         sh 'docker container rm -f $(docker ps -a -q)'
     }
 
+    stage('Run unit tets') {
+        sh('./mvn test')
+    }
+
     stage('Build the Artifact') {
-        sh("./mvn clean package")
+        sh('./mvn clean package')
     }
 
     stage('Build image') {
