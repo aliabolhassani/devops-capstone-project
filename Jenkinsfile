@@ -11,11 +11,11 @@ node {
     }
 
     stage('Run unit tets') {
-        sh('./mvn test')
+        sh('./mvnw test')
     }
 
     stage('Build the Artifact') {
-        sh('./mvn clean package')
+        sh('./mvnw clean package')
     }
 
     stage('Build image') {
