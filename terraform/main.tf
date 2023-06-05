@@ -12,8 +12,8 @@ locals {
 }
 
 provider "aws" {
-  access_key = "AKIAZESCO4PXA6PGAH6J"
-  secret_key = "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"
+  access_key = "*********"
+  secret_key = "*********"
   region     = "us-east-1"
 }
 
