@@ -5,6 +5,6 @@
 /terraform/ssh-key.pub
 /terraform/terraform.tfstate
 /terraform/terraform.tfstate.backup
-/terraform/hosts-ip
+/terraform/host-ips
 
 

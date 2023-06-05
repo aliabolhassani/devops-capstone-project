@@ -1,15 +1,16 @@
 locals {
-  region        = "us-east-1"
-  vpc           = "vpc-08b444c062d5e9e82"
-  ssh-user      = "ubuntu"
-  ami           = "ami-08c40ec9ead489470"
-  instance-type = "t2.micro"
-  subnet        = "subnet-0fd348459a0fb6053"
-  publicip      = true
+  region           = "us-east-1"
+  vpc              = "vpc-08b444c062d5e9e82"
+  ssh-user         = "ubuntu"
+  ami              = "ami-08c40ec9ead489470"
+  instance-type    = "t2.micro"
+  subnet           = "subnet-0fd348459a0fb6053"
+  publicip         = true
   private-key-path = "/home/ali/devops-capstone-project/terraform/ssh-key"
   keyname          = "ssh-key-pair"
   sg-name          = "cp-security-group"
 }
+
 provider "aws" {
   access_key = "AKIAZESCO4PXA6PGAH6J"
   secret_key = "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"
@@ -22,14 +23,14 @@ resource "tls_private_key" "ssh-key-pair" {
 }
 
 resource "local_file" "public_key" {
-  content = tls_private_key.ssh-key-pair.public_key_openssh
-  filename = "ssh-key.pub"
+  content         = tls_private_key.ssh-key-pair.public_key_openssh
+  filename        = "ssh-key.pub"
   file_permission = 600
 }
 
 resource "local_file" "private_key" {
-  content  = tls_private_key.ssh-key-pair.private_key_openssh
-  filename = "ssh-key"
+  content         = tls_private_key.ssh-key-pair.private_key_openssh
+  filename        = "ssh-key"
   file_permission = 600
 }
 
@@ -83,7 +84,7 @@ resource "aws_security_group" "cp-sg" {
 }
 
 resource "aws_key_pair" "cp-key_pair" {
-  key_name = local.keyname
+  key_name   = local.keyname
   public_key = tls_private_key.ssh-key-pair.public_key_openssh
 }
 
@@ -114,9 +115,9 @@ resource "aws_instance" "cp-vm-instance" {
   depends_on = [aws_security_group.cp-sg]
 
   connection {
-    type = "ssh"
-    host = self.public_ip
-    user = local.ssh-user
+    type        = "ssh"
+    host        = self.public_ip
+    user        = local.ssh-user
     private_key = tls_private_key.ssh-key-pair.private_key_openssh
     timeout     = "4m"
   }
@@ -129,7 +130,7 @@ resource "aws_instance" "cp-vm-instance" {
 
   provisioner "local-exec" {
     # Export host public_ip as an Ansible inventory file
-    command = "echo ${self.public_ip} > hosts-ip"
+    command = "echo ${self.public_ip} > host-ips"
   }
 
   # provisioner "local-exec" {
