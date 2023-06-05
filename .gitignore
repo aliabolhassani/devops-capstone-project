@@ -1,2 +1,10 @@
 /target
+/terraform/.terraform
+/terraform/.terraform.lock.hcl
+/terraform/ssh-key
+/terraform/ssh-key.pub
+/terraform/terraform.tfstate
+/terraform/terraform.tfstate.backup
+/terraform/hosts-ip
+
 
