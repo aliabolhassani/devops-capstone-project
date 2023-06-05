@@ -11,12 +11,6 @@ locals {
   sg-name          = "cp-security-group"
 }
 
-provider "aws" {
-  access_key = "*********"
-  secret_key = "*********"
-  region     = "us-east-1"
-}
-
 resource "tls_private_key" "ssh-key-pair" {
   algorithm = "RSA"
   rsa_bits  = 4096
