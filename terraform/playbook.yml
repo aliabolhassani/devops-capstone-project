@@ -32,9 +32,15 @@
         service: name=jenkins state=started
 
       # Installing Docker
-      - name: Installing Docker
+      - name: Downloading Docker installation script
         command: wget https://raw.githubusercontent.com/lerndevops/labs/master/scripts/installDocker.sh -P /tmp
+        become: yes
+
+      - name: Change file access mode
         command: chmod 755 /tmp/installDocker.sh
+        become: yes
+
+      - name: Installing Docker
         command: bash /tmp/installDocker.sh
         become: yes
 
