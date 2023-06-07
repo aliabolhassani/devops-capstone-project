@@ -127,12 +127,13 @@ resource "aws_instance" "cp-vm-instance" {
     command = "echo ${self.public_ip} > host-ips"
   }
 
-  # provisioner "local-exec" {
-  #   # Execute the Ansible playbook
-  #   command = "ansible-playbook -i hosts-ip --user ${local.ssh-user} --private-key ${local.private-key-path} playbook.yml"
-  # }
+  provisioner "local-exec" {
+    # Execute the Ansible playbook
+    command = "ansible-playbook -i host-ips --user ${local.ssh-user} --private-key ${local.private-key-path} playbook.yml"
+  }
 }
 
 output "ec2instance" {
   value = aws_instance.cp-vm-instance.public_ip
 }
+ 

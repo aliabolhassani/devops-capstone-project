@@ -1,0 +1,47 @@
+- hosts: all
+  tasks:
+
+      # Installing Java
+      - name: Updating apt package manager repositories cache
+        become: yes
+        apt:
+          update_cache: yes
+
+      - name: Installing Java
+        become: yes
+        apt:
+          name: "{{ packages }}"
+          state: present
+        vars:
+          packages:
+              - openjdk-11-jdk
+
+      # Installing Jenkins
+      - name: Ensure the jenkins apt repository key is installed
+        apt_key: url=https://pkg.jenkins.io/debian/jenkins.io-2023.key state=present
+        become: yes
+
+      - name: Ensure the repository is configured
+        apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+        become: yes
+
+      - name: Ensure Jenkins is installed
+        apt: name=jenkins update_cache=yes
+        become: yes
+
+      - name: Ensure Jenkins is running
+        service: name=jenkins state=started
+
+      # Installing Docker
+      - name: Installing Docker
+        command: wget https://raw.githubusercontent.com/lerndevops/labs/master/scripts/installDocker.sh -P /tmp
+        command: chmod 755 /tmp/installDocker.sh
+        command: bash /tmp/installDocker.sh
+        become: yes
+
+      - name: Ensure Docker is installed
+        apt: name=docker update_cache=yes
+        become: yes
+
+      - name: Ensure Docker is running
+        service: name=docker state=started
