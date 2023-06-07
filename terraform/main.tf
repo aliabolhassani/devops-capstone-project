@@ -129,7 +129,9 @@ resource "aws_instance" "cp-vm-instance" {
 
   provisioner "remote-exec" {
     # Execute the Ansible playbook
-    command = "ansible-playbook -i host-ips --user ${local.ssh-user} --private-key ${local.private-key-path} playbook.yml"
+    inline = [
+      "ansible-playbook -i host-ips --user ${local.ssh-user} --private-key ${local.private-key-path} playbook.yml"
+    ]
   }
 }
 
