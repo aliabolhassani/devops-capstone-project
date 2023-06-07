@@ -1,6 +1,5 @@
 - hosts: all
   tasks:
-
       # Installing Java
       - name: Updating apt package manager repositories cache
         become: yes

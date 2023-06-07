@@ -127,7 +127,7 @@ resource "aws_instance" "cp-vm-instance" {
     command = "echo ${self.public_ip} > host-ips"
   }
 
-  provisioner "local-exec" {
+  provisioner "remote-exec" {
     # Execute the Ansible playbook
     command = "ansible-playbook -i host-ips --user ${local.ssh-user} --private-key ${local.private-key-path} playbook.yml"
   }
