@@ -6,4 +6,3 @@
 /terraform/terraform.tfstate
 /terraform/terraform.tfstate.backup
 /terraform/host-ips
-/terraform/creds.tf
