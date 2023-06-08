@@ -36,7 +36,7 @@
         command: wget https://raw.githubusercontent.com/lerndevops/labs/master/scripts/installDocker.sh -P /tmp
         become: yes
 
-      - name: Change file access mode
+      - name: Changing the script file access mode
         command: chmod 755 /tmp/installDocker.sh
         become: yes
 
